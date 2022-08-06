@@ -1,1040 +1,710 @@
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Untitled</title>
-    <style>
-      /* cspell:disable-file */
-      /* webkit printing magic: print all background colors */
-      html {
-        -webkit-print-color-adjust: exact;
-      }
-      * {
-        box-sizing: border-box;
-        -webkit-print-color-adjust: exact;
-      }
-
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      @media only screen {
-        body {
-          margin: 2em auto;
-          max-width: 900px;
-          color: rgb(55, 53, 47);
-        }
-      }
-
-      body {
-        line-height: 1.5;
-        white-space: pre-wrap;
-      }
-
-      a,
-      a.visited {
-        color: inherit;
-        text-decoration: underline;
-      }
-
-      .pdf-relative-link-path {
-        font-size: 80%;
-        color: #444;
-      }
-
-      h1,
-      h2,
-      h3 {
-        letter-spacing: -0.01em;
-        line-height: 1.2;
-        font-weight: 600;
-        margin-bottom: 0;
-      }
-
-      .page-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-top: 0;
-        margin-bottom: 0.75em;
-      }
-
-      h1 {
-        font-size: 1.875rem;
-        margin-top: 1.875rem;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-        margin-top: 1.5rem;
-      }
-
-      h3 {
-        font-size: 1.25rem;
-        margin-top: 1.25rem;
-      }
-
-      .source {
-        border: 1px solid #ddd;
-        border-radius: 3px;
-        padding: 1.5em;
-        word-break: break-all;
-      }
-
-      .callout {
-        border-radius: 3px;
-        padding: 1rem;
-      }
-
-      figure {
-        margin: 1.25em 0;
-        page-break-inside: avoid;
-      }
-
-      figcaption {
-        opacity: 0.5;
-        font-size: 85%;
-        margin-top: 0.5em;
-      }
-
-      mark {
-        background-color: transparent;
-      }
-
-      .indented {
-        padding-left: 1.5em;
-      }
-
-      hr {
-        background: transparent;
-        display: block;
-        width: 100%;
-        height: 1px;
-        visibility: visible;
-        border: none;
-        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-      }
-
-      img {
-        max-width: 100%;
-      }
-
-      @media only print {
-        img {
-          max-height: 100vh;
-          object-fit: contain;
-        }
-      }
-
-      @page {
-        margin: 1in;
-      }
-
-      .collection-content {
-        font-size: 0.875rem;
-      }
-
-      .column-list {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .column {
-        padding: 0 1em;
-      }
-
-      .column:first-child {
-        padding-left: 0;
-      }
-
-      .column:last-child {
-        padding-right: 0;
-      }
-
-      .table_of_contents-item {
-        display: block;
-        font-size: 0.875rem;
-        line-height: 1.3;
-        padding: 0.125rem;
-      }
-
-      .table_of_contents-indent-1 {
-        margin-left: 1.5rem;
-      }
-
-      .table_of_contents-indent-2 {
-        margin-left: 3rem;
-      }
-
-      .table_of_contents-indent-3 {
-        margin-left: 4.5rem;
-      }
-
-      .table_of_contents-link {
-        text-decoration: none;
-        opacity: 0.7;
-        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-      }
-
-      table,
-      th,
-      td {
-        border: 1px solid rgba(55, 53, 47, 0.09);
-        border-collapse: collapse;
-      }
-
-      table {
-        border-left: none;
-        border-right: none;
-      }
-
-      th,
-      td {
-        font-weight: normal;
-        padding: 0.25em 0.5em;
-        line-height: 1.5;
-        min-height: 1.5em;
-        text-align: left;
-      }
-
-      th {
-        color: rgba(55, 53, 47, 0.6);
-      }
-
-      ol,
-      ul {
-        margin: 0;
-        margin-block-start: 0.6em;
-        margin-block-end: 0.6em;
-      }
-
-      li > ol:first-child,
-      li > ul:first-child {
-        margin-block-start: 0.6em;
-      }
-
-      ul > li {
-        list-style: disc;
-      }
-
-      ul.to-do-list {
-        text-indent: -1.7em;
-      }
-
-      ul.to-do-list > li {
-        list-style: none;
-      }
-
-      .to-do-children-checked {
-        text-decoration: line-through;
-        opacity: 0.375;
-      }
-
-      ul.toggle > li {
-        list-style: none;
-      }
-
-      ul {
-        padding-inline-start: 1.7em;
-      }
-
-      ul > li {
-        padding-left: 0.1em;
-      }
-
-      ol {
-        padding-inline-start: 1.6em;
-      }
-
-      ol > li {
-        padding-left: 0.2em;
-      }
-
-      .mono ol {
-        padding-inline-start: 2em;
-      }
-
-      .mono ol > li {
-        text-indent: -0.4em;
-      }
-
-      .toggle {
-        padding-inline-start: 0em;
-        list-style-type: none;
-      }
-
-      /* Indent toggle children */
-      .toggle > li > details {
-        padding-left: 1.7em;
-      }
-
-      .toggle > li > details > summary {
-        margin-left: -1.1em;
-      }
-
-      .selected-value {
-        display: inline-block;
-        padding: 0 0.5em;
-        background: rgba(206, 205, 202, 0.5);
-        border-radius: 3px;
-        margin-right: 0.5em;
-        margin-top: 0.3em;
-        margin-bottom: 0.3em;
-        white-space: nowrap;
-      }
-
-      .collection-title {
-        display: inline-block;
-        margin-right: 1em;
-      }
-
-      .simple-table {
-        margin-top: 1em;
-        font-size: 0.875rem;
-        empty-cells: show;
-      }
-      .simple-table td {
-        height: 29px;
-        min-width: 120px;
-      }
-
-      .simple-table th {
-        height: 29px;
-        min-width: 120px;
-      }
-
-      .simple-table-header-color {
-        background: rgb(247, 246, 243);
-        color: black;
-      }
-      .simple-table-header {
-        font-weight: 500;
-      }
-
-      time {
-        opacity: 0.5;
-      }
-
-      .icon {
-        display: inline-block;
-        max-width: 1.2em;
-        max-height: 1.2em;
-        text-decoration: none;
-        vertical-align: text-bottom;
-        margin-right: 0.5em;
-      }
-
-      img.icon {
-        border-radius: 3px;
-      }
-
-      .user-icon {
-        width: 1.5em;
-        height: 1.5em;
-        border-radius: 100%;
-        margin-right: 0.5rem;
-      }
-
-      .user-icon-inner {
-        font-size: 0.8em;
-      }
-
-      .text-icon {
-        border: 1px solid #000;
-        text-align: center;
-      }
-
-      .page-cover-image {
-        display: block;
-        object-fit: cover;
-        width: 100%;
-        max-height: 30vh;
-      }
-
-      .page-header-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-      }
-
-      .page-header-icon-with-cover {
-        margin-top: -0.72em;
-        margin-left: 0.07em;
-      }
-
-      .page-header-icon img {
-        border-radius: 3px;
-      }
-
-      .link-to-page {
-        margin: 1em 0;
-        padding: 0;
-        border: none;
-        font-weight: 500;
-      }
-
-      p > .user {
-        opacity: 0.5;
-      }
-
-      td > .user,
-      td > time {
-        white-space: nowrap;
-      }
-
-      input[type="checkbox"] {
-        transform: scale(1.5);
-        margin-right: 0.6em;
-        vertical-align: middle;
-      }
-
-      p {
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-      }
-
-      .image {
-        border: none;
-        margin: 1.5em 0;
-        padding: 0;
-        border-radius: 0;
-        text-align: center;
-      }
-
-      .code,
-      code {
-        background: rgba(135, 131, 120, 0.15);
-        border-radius: 3px;
-        padding: 0.2em 0.4em;
-        border-radius: 3px;
-        font-size: 85%;
-        tab-size: 2;
-      }
-
-      code {
-        color: #eb5757;
-      }
-
-      .code {
-        padding: 1.5em 1em;
-      }
-
-      .code-wrap {
-        white-space: pre-wrap;
-        word-break: break-all;
-      }
-
-      .code > code {
-        background: none;
-        padding: 0;
-        font-size: 100%;
-        color: inherit;
-      }
-
-      blockquote {
-        font-size: 1.25em;
-        margin: 1em 0;
-        padding-left: 1em;
-        border-left: 3px solid rgb(55, 53, 47);
-      }
-
-      .bookmark {
-        text-decoration: none;
-        max-height: 8em;
-        padding: 0;
-        display: flex;
-        width: 100%;
-        align-items: stretch;
-      }
-
-      .bookmark-title {
-        font-size: 0.85em;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        height: 1.75em;
-        white-space: nowrap;
-      }
-
-      .bookmark-text {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .bookmark-info {
-        flex: 4 1 180px;
-        padding: 12px 14px 14px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      .bookmark-image {
-        width: 33%;
-        flex: 1 1 180px;
-        display: block;
-        position: relative;
-        object-fit: cover;
-        border-radius: 1px;
-      }
-
-      .bookmark-description {
-        color: rgba(55, 53, 47, 0.6);
-        font-size: 0.75em;
-        overflow: hidden;
-        max-height: 4.5em;
-        word-break: break-word;
-      }
-
-      .bookmark-href {
-        font-size: 0.75em;
-        margin-top: 0.25em;
-      }
-
-      .sans {
-        font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
-          "Segoe UI Emoji", "Segoe UI Symbol";
-      }
-      .code {
-        font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono",
-          "Liberation Mono", Courier, monospace;
-      }
-      .serif {
-        font-family: Lyon-Text, Georgia, ui-serif, serif;
-      }
-      .mono {
-        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
-      }
-      .pdf .sans {
-        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
-          "Segoe UI Emoji", "Segoe UI Symbol", "Twemoji", "Noto Color Emoji",
-          "Noto Sans CJK JP";
-      }
-      .pdf:lang(zh-CN) .sans {
-        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
-          "Segoe UI Emoji", "Segoe UI Symbol", "Twemoji", "Noto Color Emoji",
-          "Noto Sans CJK SC";
-      }
-      .pdf:lang(zh-TW) .sans {
-        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
-          "Segoe UI Emoji", "Segoe UI Symbol", "Twemoji", "Noto Color Emoji",
-          "Noto Sans CJK TC";
-      }
-      .pdf:lang(ko-KR) .sans {
-        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif,
-          "Segoe UI Emoji", "Segoe UI Symbol", "Twemoji", "Noto Color Emoji",
-          "Noto Sans CJK KR";
-      }
-      .pdf .code {
-        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
-          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
-          "Noto Color Emoji", "Noto Sans Mono CJK JP";
-      }
-      .pdf:lang(zh-CN) .code {
-        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
-          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
-          "Noto Color Emoji", "Noto Sans Mono CJK SC";
-      }
-      .pdf:lang(zh-TW) .code {
-        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
-          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
-          "Noto Color Emoji", "Noto Sans Mono CJK TC";
-      }
-      .pdf:lang(ko-KR) .code {
-        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
-          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
-          "Noto Color Emoji", "Noto Sans Mono CJK KR";
-      }
-      .pdf .serif {
-        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
-          "Noto Color Emoji", "Noto Serif CJK JP";
-      }
-      .pdf:lang(zh-CN) .serif {
-        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
-          "Noto Color Emoji", "Noto Serif CJK SC";
-      }
-      .pdf:lang(zh-TW) .serif {
-        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
-          "Noto Color Emoji", "Noto Serif CJK TC";
-      }
-      .pdf:lang(ko-KR) .serif {
-        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
-          "Noto Color Emoji", "Noto Serif CJK KR";
-      }
-      .pdf .mono {
-        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
-          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK JP";
-      }
-      .pdf:lang(zh-CN) .mono {
-        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
-          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC";
-      }
-      .pdf:lang(zh-TW) .mono {
-        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
-          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK TC";
-      }
-      .pdf:lang(ko-KR) .mono {
-        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
-          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK KR";
-      }
-      .highlight-default {
-        color: rgba(55, 53, 47, 1);
-      }
-      .highlight-gray {
-        color: rgba(120, 119, 116, 1);
-        fill: rgba(120, 119, 116, 1);
-      }
-      .highlight-brown {
-        color: rgba(159, 107, 83, 1);
-        fill: rgba(159, 107, 83, 1);
-      }
-      .highlight-orange {
-        color: rgba(217, 115, 13, 1);
-        fill: rgba(217, 115, 13, 1);
-      }
-      .highlight-yellow {
-        color: rgba(203, 145, 47, 1);
-        fill: rgba(203, 145, 47, 1);
-      }
-      .highlight-teal {
-        color: rgba(68, 131, 97, 1);
-        fill: rgba(68, 131, 97, 1);
-      }
-      .highlight-blue {
-        color: rgba(51, 126, 169, 1);
-        fill: rgba(51, 126, 169, 1);
-      }
-      .highlight-purple {
-        color: rgba(144, 101, 176, 1);
-        fill: rgba(144, 101, 176, 1);
-      }
-      .highlight-pink {
-        color: rgba(193, 76, 138, 1);
-        fill: rgba(193, 76, 138, 1);
-      }
-      .highlight-red {
-        color: rgba(212, 76, 71, 1);
-        fill: rgba(212, 76, 71, 1);
-      }
-      .highlight-gray_background {
-        background: rgba(241, 241, 239, 1);
-      }
-      .highlight-brown_background {
-        background: rgba(244, 238, 238, 1);
-      }
-      .highlight-orange_background {
-        background: rgba(251, 236, 221, 1);
-      }
-      .highlight-yellow_background {
-        background: rgba(251, 243, 219, 1);
-      }
-      .highlight-teal_background {
-        background: rgba(237, 243, 236, 1);
-      }
-      .highlight-blue_background {
-        background: rgba(231, 243, 248, 1);
-      }
-      .highlight-purple_background {
-        background: rgba(244, 240, 247, 0.8);
-      }
-      .highlight-pink_background {
-        background: rgba(249, 238, 243, 0.8);
-      }
-      .highlight-red_background {
-        background: rgba(253, 235, 236, 1);
-      }
-      .block-color-default {
-        color: inherit;
-        fill: inherit;
-      }
-      .block-color-gray {
-        color: rgba(120, 119, 116, 1);
-        fill: rgba(120, 119, 116, 1);
-      }
-      .block-color-brown {
-        color: rgba(159, 107, 83, 1);
-        fill: rgba(159, 107, 83, 1);
-      }
-      .block-color-orange {
-        color: rgba(217, 115, 13, 1);
-        fill: rgba(217, 115, 13, 1);
-      }
-      .block-color-yellow {
-        color: rgba(203, 145, 47, 1);
-        fill: rgba(203, 145, 47, 1);
-      }
-      .block-color-teal {
-        color: rgba(68, 131, 97, 1);
-        fill: rgba(68, 131, 97, 1);
-      }
-      .block-color-blue {
-        color: rgba(51, 126, 169, 1);
-        fill: rgba(51, 126, 169, 1);
-      }
-      .block-color-purple {
-        color: rgba(144, 101, 176, 1);
-        fill: rgba(144, 101, 176, 1);
-      }
-      .block-color-pink {
-        color: rgba(193, 76, 138, 1);
-        fill: rgba(193, 76, 138, 1);
-      }
-      .block-color-red {
-        color: rgba(212, 76, 71, 1);
-        fill: rgba(212, 76, 71, 1);
-      }
-      .block-color-gray_background {
-        background: rgba(241, 241, 239, 1);
-      }
-      .block-color-brown_background {
-        background: rgba(244, 238, 238, 1);
-      }
-      .block-color-orange_background {
-        background: rgba(251, 236, 221, 1);
-      }
-      .block-color-yellow_background {
-        background: rgba(251, 243, 219, 1);
-      }
-      .block-color-teal_background {
-        background: rgba(237, 243, 236, 1);
-      }
-      .block-color-blue_background {
-        background: rgba(231, 243, 248, 1);
-      }
-      .block-color-purple_background {
-        background: rgba(244, 240, 247, 0.8);
-      }
-      .block-color-pink_background {
-        background: rgba(249, 238, 243, 0.8);
-      }
-      .block-color-red_background {
-        background: rgba(253, 235, 236, 1);
-      }
-      .select-value-color-pink {
-        background-color: rgba(245, 224, 233, 1);
-      }
-      .select-value-color-purple {
-        background-color: rgba(232, 222, 238, 1);
-      }
-      .select-value-color-green {
-        background-color: rgba(219, 237, 219, 1);
-      }
-      .select-value-color-gray {
-        background-color: rgba(227, 226, 224, 1);
-      }
-      .select-value-color-opaquegray {
-        background-color: rgba(255, 255, 255, 0.0375);
-      }
-      .select-value-color-orange {
-        background-color: rgba(250, 222, 201, 1);
-      }
-      .select-value-color-brown {
-        background-color: rgba(238, 224, 218, 1);
-      }
-      .select-value-color-red {
-        background-color: rgba(255, 226, 221, 1);
-      }
-      .select-value-color-yellow {
-        background-color: rgba(253, 236, 200, 1);
-      }
-      .select-value-color-blue {
-        background-color: rgba(211, 229, 239, 1);
-      }
-
-      .checkbox {
-        display: inline-flex;
-        vertical-align: text-bottom;
-        width: 16;
-        height: 16;
-        background-size: 16px;
-        margin-left: 2px;
-        margin-right: 5px;
-      }
-
-      .checkbox-on {
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-      }
-
-      .checkbox-off {
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-      }
-    </style>
-  </head>
-  <body>
-    <article id="98ccb864-28a5-46c2-85dd-b3a2ff1bdc8d" class="page serif">
-      <header><h1 class="page-title"></h1></header>
-      <div class="page-body">
-        <figure id="cfa94555-7156-4e6a-bcc5-101777792369" class="image">
-          <a href="again.png"><img style="width: 768px" src="again.png" /></a>
-        </figure>
-        <h2 id="d6627eb5-039c-4722-9337-e1599167b83c" class="">
-          <mark class="highlight-blue"><strong>Problem</strong></mark>
-        </h2>
-        <p id="5721eb23-32e4-4fa8-a4cd-2376c2e4cf21" class="">
-          <strong>Marketing attribution is broken.</strong> Previously,
-          business’s could map a customer’s entire online journey with their
-          brand through a sale. Having these insights helped them to only spend
-          money on the most efficient marketing channels. Now without this data,
-          they’re wasting away marketing dollars and are stuck with a product
-          that isn’t growing.
-        </p>
-        <p id="964ded59-20ea-4ce3-8320-d241e65745f5" class=""></p>
-        <h2 id="b18dd06f-c930-4ce4-a436-ca17c8626459" class="">
-          <mark class="highlight-blue"><strong>Why Now</strong></mark>
-        </h2>
-        <ol
-          type="1"
-          id="25245b74-4b2b-4cb2-97a6-e4189b1d4c7b"
-          class="numbered-list"
-          start="1"
-        >
-          <li>
-            <strong>The building blocks of the internet have changed. </strong>
-          </li>
-        </ol>
-        <p id="de523cf6-cb18-4bbf-989f-b0a417ab7ffd" class="">
-          The 1st &amp; 3rd party tracking cookie that previously were used for
-          identifying visitors multiple times lacks identification accuracy is
-          2022. Visitor’s decline cookie consent banners, modern browsers block
-          them, ad blockers disable them.
-        </p>
-        <p id="3404f7b9-5b49-498c-8e73-d03577c0be81" class="">
-          But Why Now? The tracking cookie has been misuesed for cross-domain
-          tracking purposes, and tying personally identifiable information to a
-          person’s device
-        </p>
-        <ol
-          type="1"
-          id="9c8102a7-6e9e-498f-a15a-074ce1bc9b8f"
-          class="numbered-list"
-          start="2"
-        >
-          <li><strong>Regulators are finally doing there job</strong></li>
-        </ol>
-        <p id="8561c458-4811-49a5-b655-aa7e1f5f7c31" class="">
-          Primarily across the EU, in the last year there has been an upswing of
-          GDPR violation lawsuites filed against Google, company x, company
-          y…etc
-        </p>
-        <ol
-          type="1"
-          id="9220debc-3a3e-4962-acf2-f9813b42fdad"
-          class="numbered-list"
-          start="3"
-        >
-          <li>
-            <strong>The market downturn brings a new level of demand</strong>
-          </li>
-        </ol>
-        <p id="f1031884-eb93-42f0-aec8-681cd72196dd" class="">
-          Money is no longer free in the startup ecosystem. For an attribution
-          company, this could not be better timing. OOH and traditional media
-          spend is shifting to digital, as marketing professionals want to see
-          clear correlation between marketing spend &amp; an increase in
-          whatever metric impacts their bottom line. Heads of Marketing, Heads
-          of Growth, and CMO’s, need a solution to get their marketing waste
-          down to zero. And a proper multi-touch attribution framework is the
-          best path forward.
-        </p>
-        <p id="902e7d09-17d7-48b7-836f-52482bbc74d1" class=""></p>
-        <h2 id="67680755-9c72-4158-87a7-66729963120c" class="">
-          <mark class="highlight-blue"><strong>Product</strong></mark>
-        </h2>
-        <p id="ab307f7b-f6a7-466e-a497-0239dc06ccbf" class="">
-          <strong
-            >Banabo is as much a design company as it is a technology company. </strong
-          >We’re building a compound product that weaves together three core
-          features. It’s the unification of three core features that will help
-          us win.
-        </p>
-        <ol
-          type="1"
-          id="bbb09109-b2ed-458d-946b-97578a52dd71"
-          class="numbered-list"
-          start="1"
-        >
-          <li><strong>Anonymous Visitor Identification</strong></li>
-        </ol>
-        <p id="ef73958d-4bc9-49aa-869a-e5f310ad956e" class="">
-          This happens via hardware, location, and cellular data + persistent
-          storage on a visitor’s device. We have industry-leading accuracy for
-          multi-touch device identification. It’s compliant with GDPR, CCPA, and
-          the upcoming Virginia Regulations.
-        </p>
-        <ol
-          type="1"
-          id="5c584090-def3-4806-97a5-fa3b9bb9af3c"
-          class="numbered-list"
-          start="2"
-        >
-          <li><strong>Plaid for Marketing</strong></li>
-        </ol>
-        <p id="8c8bbd1d-7ee9-4bba-8172-fe2d176656a1" class="">
-          We’ve built a common data model &amp; authentication flow for
-          connecting to a marketing professionals full data stack.
-        </p>
-        <ol
-          type="1"
-          id="2dfe92be-6c02-47af-b4ec-ce973a6daf19"
-          class="numbered-list"
-          start="3"
-        >
-          <li>
-            <strong>Figma Level Tooling for Creating Conversion Events</strong>
-          </li>
-        </ol>
-        <p id="2861b6c5-d438-4630-ae53-50dc7258e3c9" class="">
-          Marketing and Engineering teams don’t work together within large
-          companies. We’ve built out a no-code solution that uses our own
-          messaging protocol to automatically attach event triggers within a
-          website’s code, without having to involve the engineering team.
-        </p>
-        <p id="40b544d7-cbde-4273-b558-29f451b6bcdd" class=""></p>
-        <h2 id="1bd24d94-c7ec-4d26-86ea-4dbf956aa524" class="">
-          <mark class="highlight-blue"
-            ><strong
-              >Why hasn’t anybody solved this problem so far?</strong
-            ></mark
-          >
-        </h2>
-        <p id="992ac017-6c03-4248-8890-ce462b27a617" class="">
-          It’s challenging to build attribution tooling that is 10x better to
-          break through the noise. There’s a sea of broken attribution tools
-          that currently own small pieces of this market, the market is ripe for
-          a domanant player to emerge.
-        </p>
-        <p id="a1eeae91-ccf5-4b9f-a713-44f822c02cce" class="">
-          Within a very fragmented industry, with extremely low customer
-          happiness across the board. And we’re not the first company that has
-          ever jumped into this market, but we do plan on being the last.
-        </p>
-        <p id="6c395303-a954-4873-a163-9d77b5e61251" class=""></p>
-        <p id="ef41145c-39c1-4f59-a329-27ac58ade2f2" class=""></p>
-        <h2 id="d5da5dc3-5a98-404b-a25b-2c4dd496e946" class="">
-          <mark class="highlight-blue"><strong>Distribution</strong></mark>
-        </h2>
-        <ol
-          type="1"
-          id="a3caf24b-d84a-4667-8a9e-c0067445f567"
-          class="numbered-list"
-          start="1"
-        >
-          <li><strong>LinkedIn LinkedIn LinkedIn</strong></li>
-        </ol>
-        <p id="1d201bed-8269-4214-8fe0-66f76c251bee" class="">
-          There is inherent network effects among marketing and growth
-          professionals. Yes, very much so.
-        </p>
-        <p id="6346e99c-dd4d-4a87-85c5-d9e4e8a7eb5b" class="">
-          There has never been a moment in time where every marketing, and
-          growth professional are encapsulated by the same medium
-        </p>
-        <ol
-          type="1"
-          id="1318df10-46ef-4bdb-a75a-f02b4d109bea"
-          class="numbered-list"
-          start="2"
-        >
-          <li><strong>Y Combinator Community</strong></li>
-        </ol>
-        <p id="d2835d21-cf71-4bd3-8dc1-b9a9bdc9c2b6" class="">
-          It’s extremely easy for us to reach the head of growth/marketing at
-          the company’s of previous Y Combinator alumni
-        </p>
-        <ol
-          type="1"
-          id="ceda684c-ce50-4c6f-b60f-0f627efbf8db"
-          class="numbered-list"
-          start="1"
-        >
-          <li><strong>SEO. </strong></li>
-        </ol>
-        <p id="5c532fb7-c6d2-4bf7-8086-ef534438b9d2" class="">
-          We’re currently wrapping up the building phase, and we’ve already got
-          marketing and growth professionals trying to get their hands on the
-          product. We’re already seeing a market pull
-        </p>
-        <p id="a429b70a-1f7e-4849-84c1-874e88f437ff" class=""></p>
-        <h2 id="a7164ba3-d551-42d2-902c-45a9cbd3d249" class="">
-          <mark class="highlight-blue"><strong>Team</strong></mark>
-        </h2>
-        <p id="118989a2-03e6-4f86-9e7a-470a1d3a1556" class="">
-          Colin (CEO) built a multi-touch attribution engine at Epic Games,
-          created marketing api systems at Facebook &amp; Microsoft. And at
-          Tesla, built digital website experiences.
-        </p>
-        <p id="77783e85-e7b8-4350-9a55-a4ba56ae8078" class=""></p>
-        <p id="88bc3d2f-cfa6-4fa7-808f-00c104a94ff9" class="">
-          Ben (CTO) At T-Mobile worked with heaps of cellular data, and created
-          machine learning systems to identify patterns within this data. His
-          deep understanding of cellular data, is a core component of how we’re
-          able to do this rigourous identication process while being fully
-          compliant with the data privacy regualtions from around the world.
-        </p>
-        <p id="830b563e-d37b-4de0-b52b-0497e46dd458" class=""></p>
-        <h2 id="05807b40-4005-492c-aa9f-03962384d855" class="">
-          <mark class="highlight-blue"><strong>Next Steps</strong></mark>
-        </h2>
-        <p id="9c213f76-a5b9-4a73-9fdb-c48165b43a91" class="">
-          <strong>Fundraising.</strong> We’re raising 4 million for our seed
-          round. We have a fundraising process with potential lead investors
-          setup for the last two weeks in August. We plan on securing a lead
-          investor first, and then utilizing the Y Combinator Demo Day to bring
-          on high value angel investors
-        </p>
-        <p id="fb5ffb5e-9e60-4f59-8a8c-f9dd6f15b594" class=""></p>
-        <p id="ea8cc0ce-8799-4fa8-909a-ba8c7a837eaa" class="">
-          <strong>Hiring.</strong> We have a great network of engineering talent
-          between our work experiences at Tesla, Microsoft, T-Mobile, Facebook
-          etc... After the Y Combinator batch concludes, we’ll be plucking our
-          friends that are world class developers &amp; designers. It will take
-          superstar talent to win in this game.
-        </p>
-        <p id="ef5685d6-d048-41a2-a38d-f443059e2dba" class=""></p>
-        <p id="e6ccf2d2-b22b-4dbc-a2b7-b5f05b7cf474" class="">
-          <strong>Customer Onboarding. </strong>We’re in a rush to build, but
-          not a rush to release the product to the masses. Our philosphy is this
-          product has to be 10x better to cut through the noise, and we have the
-          technology &amp; team to make it happen. We’re building a public
-          company, and our hunger will get us past the finish line.
-        </p>
-        <p id="344246fa-3c69-4f42-bad1-42bdfeba4e04" class=""></p>
-        <h2 id="2ca8ea3c-fc11-49c4-b95d-91c85ea685a3" class="">
-          <mark class="highlight-blue"><strong>Conclusion</strong></mark>
-        </h2>
-        <p id="c65f5ae5-5ba1-4a96-b319-252854d24f29" class=""></p>
-        <p id="fda1601b-2a3d-4d34-926d-aae4704431dd" class=""></p>
-        <p id="46ec6a31-39ea-4732-9176-c56bd87cfdce" class=""></p>
-        <p id="d7a35ec4-0b6f-47e2-8841-2fad9717475e" class=""></p>
-        <p id="9db9a95f-dc1c-4803-a81c-d0117b895b44" class=""></p>
-        <p id="35a9734e-df6b-4cc7-a307-b4525cbd9df1" class=""></p>
-        <p id="926a6401-a42e-4f86-a0d9-bd1cb074036d" class=""></p>
-        <p id="2d54174e-d6fc-4f74-b4d3-440eef16feac" class=""></p>
-        <p id="73d8c061-4791-497e-9f98-01752e15d3c4" class=""></p>
-        <p id="b6b7bc8f-a8ea-44e9-bf7c-43feaf5d3e2d" class=""></p>
-        <p id="9501e297-66e3-4d6f-b280-9981d696258f" class=""></p>
-        <p id="f3e9adee-27cc-42e7-ad7d-fd3c5fb73715" class=""></p>
-        <p id="5d2a8cc9-e176-4429-be9d-30de6398040f" class=""></p>
-        <p id="76237498-4730-47f6-99d8-730fbed1dc78" class=""></p>
-        <p id="051689ad-d3c8-4222-8af6-b5ea441ab1b3" class=""></p>
-        <p id="48d1a6d6-9884-4ee6-9e07-f213575c1b6b" class=""></p>
-        <p id="7bbe331c-e22a-4817-bc9d-46d84177db36" class=""></p>
-        <p id="c4591e20-cf85-41d5-97a5-c8090cc1e458" class=""></p>
-        <p id="23b9cca4-a80d-447d-b694-4c7e44dc91d8" class=""></p>
-        <p id="83b9562d-3389-4f6a-84a4-7f8ba13913cf" class=""></p>
-        <p id="f06994c6-66f5-4409-b6fe-53c7b71934f7" class=""></p>
-        <p id="90af7609-5460-466d-a7fc-af97384b1bd9" class=""></p>
-        <p id="b8022109-29fc-41c6-9b1a-894d7aedc481" class=""></p>
-        <p id="e5845ebe-eb36-40b2-9055-05d827757ece" class=""></p>
-        <p id="a85fcf89-a0c5-4c0f-9562-c6c974206995" class=""></p>
-        <p id="f82e8fcb-7d4d-4d3b-ac53-a54dc6c09620" class=""></p>
-        <p id="1877ae9b-5e56-488f-a07b-3dee8fd99420" class=""></p>
-        <p id="ebc72672-6987-404b-a4b5-bd18e388c4a6" class=""></p>
-        <p id="025932a1-bc30-4921-9e30-a41d61838284" class=""></p>
-        <p id="ee8877a5-ecfe-4900-a4b5-77928a33dbd2" class=""></p>
-      </div>
-    </article>
-  </body>
-</html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Untitled</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="98ccb864-28a5-46c2-85dd-b3a2ff1bdc8d" class="page serif"><header><h1 class="page-title"></h1></header><div class="page-body"><figure id="cfa94555-7156-4e6a-bcc5-101777792369" class="image"><a href="Untitled%20cfa9455571564e6abcc5101777792369/Screen_Shot_2022-08-06_at_10.11.42_AM.png"><img style="width:768px" src="Untitled%20cfa9455571564e6abcc5101777792369/Screen_Shot_2022-08-06_at_10.11.42_AM.png"/></a></figure><h2 id="d6627eb5-039c-4722-9337-e1599167b83c" class=""><mark class="highlight-blue"><strong>Problem</strong></mark></h2><p id="5721eb23-32e4-4fa8-a4cd-2376c2e4cf21" class=""><strong>Marketing attribution is broken.</strong> Previously, business’s could map a customer’s entire online journey with their brand through a sale. Having these insights helped them to only spend money on the most efficient marketing channels. Now without this data, they’re wasting away marketing dollars and are stuck with a product that isn’t growing.</p><p id="964ded59-20ea-4ce3-8320-d241e65745f5" class="">
+</p><h2 id="b18dd06f-c930-4ce4-a436-ca17c8626459" class=""><mark class="highlight-blue"><strong>Why Now</strong></mark></h2><ol type="1" id="25245b74-4b2b-4cb2-97a6-e4189b1d4c7b" class="numbered-list" start="1"><li><strong>The building blocks of the internet have changed. </strong></li></ol><p id="de523cf6-cb18-4bbf-989f-b0a417ab7ffd" class="">The 1st &amp; 3rd party tracking cookie that previously were used for identifying visitors multiple times lacks identification accuracy is 2022. Visitor’s decline cookie consent banners, modern browsers block them, ad blockers disable them. </p><p id="3404f7b9-5b49-498c-8e73-d03577c0be81" class="">But Why Now? The tracking cookie has been misuesed for cross-domain tracking purposes, and tying personally identifiable information to a person’s device</p><ol type="1" id="9c8102a7-6e9e-498f-a15a-074ce1bc9b8f" class="numbered-list" start="2"><li><strong>Regulators are finally doing there job</strong></li></ol><p id="8561c458-4811-49a5-b655-aa7e1f5f7c31" class="">Primarily across the EU, in the last year there has been an upswing of GDPR violation lawsuites filed against Google, company x, company y…etc</p><ol type="1" id="9220debc-3a3e-4962-acf2-f9813b42fdad" class="numbered-list" start="3"><li><strong>The market downturn brings a new level of demand</strong></li></ol><p id="f1031884-eb93-42f0-aec8-681cd72196dd" class="">Money is no longer free in the startup ecosystem. For an attribution company, this could not be better timing. OOH and traditional media spend is shifting to digital, as marketing professionals want to see clear correlation between marketing spend &amp; an increase in whatever metric impacts their bottom line. Heads of Marketing, Heads of Growth, and CMO’s, need a solution to get their marketing waste down to zero. And a proper multi-touch attribution framework is the best path forward.</p><p id="902e7d09-17d7-48b7-836f-52482bbc74d1" class="">
+</p><h2 id="67680755-9c72-4158-87a7-66729963120c" class=""><mark class="highlight-blue"><strong>Product</strong></mark></h2><p id="ab307f7b-f6a7-466e-a497-0239dc06ccbf" class=""><strong>Banabo is as much a design company as it is a technology company. </strong>We’re building a compound product that weaves together three core features. It’s the unification of three core features that will help us win.</p><ol type="1" id="bbb09109-b2ed-458d-946b-97578a52dd71" class="numbered-list" start="1"><li><strong>Anonymous Visitor Identification</strong></li></ol><p id="ef73958d-4bc9-49aa-869a-e5f310ad956e" class="">This happens via hardware, location, and cellular data + persistent storage on a visitor’s device. We have industry-leading accuracy for multi-touch device identification. It’s compliant with GDPR, CCPA, and the upcoming Virginia Regulations.</p><ol type="1" id="5c584090-def3-4806-97a5-fa3b9bb9af3c" class="numbered-list" start="2"><li><strong>Plaid for Marketing</strong></li></ol><p id="8c8bbd1d-7ee9-4bba-8172-fe2d176656a1" class="">We’ve built a common data model &amp; authentication flow for connecting to a marketing professionals full data stack.</p><ol type="1" id="2dfe92be-6c02-47af-b4ec-ce973a6daf19" class="numbered-list" start="3"><li><strong>Figma Level Tooling for Creating Conversion Events</strong></li></ol><p id="2861b6c5-d438-4630-ae53-50dc7258e3c9" class="">Marketing and Engineering teams don’t work together within large companies. We’ve built out a no-code solution that uses our own messaging protocol to automatically attach event triggers within a website’s code, without having to involve the engineering team.</p><p id="40b544d7-cbde-4273-b558-29f451b6bcdd" class="">
+</p><h2 id="1bd24d94-c7ec-4d26-86ea-4dbf956aa524" class=""><mark class="highlight-blue"><strong>Why hasn’t anybody solved this problem so far?</strong></mark></h2><p id="992ac017-6c03-4248-8890-ce462b27a617" class="">It’s challenging to build attribution tooling that is 10x better to break through the noise. There’s a sea of broken attribution tools that currently own small pieces of this market, the market is ripe for a domanant player to emerge.</p><p id="a1eeae91-ccf5-4b9f-a713-44f822c02cce" class="">Within a very fragmented industry, with extremely low customer happiness across the board. And we’re not the first company that has ever jumped into this market, but we do plan on being the last.</p><p id="6c395303-a954-4873-a163-9d77b5e61251" class="">
+</p><p id="ef41145c-39c1-4f59-a329-27ac58ade2f2" class="">
+</p><h2 id="d5da5dc3-5a98-404b-a25b-2c4dd496e946" class=""><mark class="highlight-blue"><strong>Distribution</strong></mark></h2><ol type="1" id="a3caf24b-d84a-4667-8a9e-c0067445f567" class="numbered-list" start="1"><li><strong>LinkedIn LinkedIn LinkedIn</strong></li></ol><p id="1d201bed-8269-4214-8fe0-66f76c251bee" class="">There is inherent network effects among marketing and growth professionals. Yes, very much so.</p><p id="6346e99c-dd4d-4a87-85c5-d9e4e8a7eb5b" class="">There has never been a moment in time where every marketing, and growth professional are encapsulated by the same medium</p><ol type="1" id="1318df10-46ef-4bdb-a75a-f02b4d109bea" class="numbered-list" start="2"><li><strong>Y Combinator Community</strong></li></ol><p id="d2835d21-cf71-4bd3-8dc1-b9a9bdc9c2b6" class="">It’s extremely easy for us to reach the head of growth/marketing at the company’s of previous Y Combinator alumni</p><ol type="1" id="ceda684c-ce50-4c6f-b60f-0f627efbf8db" class="numbered-list" start="1"><li><strong>SEO. </strong></li></ol><p id="5c532fb7-c6d2-4bf7-8086-ef534438b9d2" class="">We’re currently wrapping up the building phase, and we’ve already got marketing and growth professionals trying to get their hands on the product. We’re already seeing a market pull</p><p id="a429b70a-1f7e-4849-84c1-874e88f437ff" class="">
+</p><h2 id="a7164ba3-d551-42d2-902c-45a9cbd3d249" class=""><mark class="highlight-blue"><strong>Team</strong></mark></h2><p id="118989a2-03e6-4f86-9e7a-470a1d3a1556" class="">Colin (CEO) built a multi-touch attribution engine at Epic Games, created marketing api systems at Facebook &amp; Microsoft. And at Tesla, built digital website experiences. </p><p id="77783e85-e7b8-4350-9a55-a4ba56ae8078" class="">
+</p><p id="88bc3d2f-cfa6-4fa7-808f-00c104a94ff9" class="">Ben (CTO) At T-Mobile worked with heaps of cellular data, and created machine learning systems to identify patterns within this data. His deep understanding of cellular data, is a core component of how we’re able to do this rigourous identication process while being fully compliant with the data privacy regualtions from around the world.</p><p id="830b563e-d37b-4de0-b52b-0497e46dd458" class="">
+</p><h2 id="05807b40-4005-492c-aa9f-03962384d855" class=""><mark class="highlight-blue"><strong>Next Steps</strong></mark></h2><p id="9c213f76-a5b9-4a73-9fdb-c48165b43a91" class=""><strong>Fundraising.</strong> We’re raising 4 million for our seed round. We have a fundraising process with potential lead investors setup for the last two weeks in August. We plan on securing a lead investor first, and then utilizing the Y Combinator Demo Day to bring on high value angel investors  </p><p id="fb5ffb5e-9e60-4f59-8a8c-f9dd6f15b594" class="">
+</p><p id="ea8cc0ce-8799-4fa8-909a-ba8c7a837eaa" class=""><strong>Hiring.</strong> We have a great network of engineering talent between our work experiences at Tesla, Microsoft, T-Mobile, Facebook etc... After the Y Combinator batch concludes, we’ll be plucking our friends that are world class developers &amp; designers. It will take superstar talent to win in this game. </p><p id="ef5685d6-d048-41a2-a38d-f443059e2dba" class="">
+</p><p id="e6ccf2d2-b22b-4dbc-a2b7-b5f05b7cf474" class=""><strong>Customer Onboarding. </strong>We’re in a rush to build, but not a rush to release the product to the masses. Our philosphy is this product has to be 10x better to cut through the noise, and we have the technology &amp; team to make it happen. We’re building a public company, and our hunger will get us past the finish line.</p><p id="344246fa-3c69-4f42-bad1-42bdfeba4e04" class="">
+</p><h2 id="2ca8ea3c-fc11-49c4-b95d-91c85ea685a3" class=""><mark class="highlight-blue"><strong>Conclusion</strong></mark></h2><p id="c65f5ae5-5ba1-4a96-b319-252854d24f29" class="">
+</p><p id="fda1601b-2a3d-4d34-926d-aae4704431dd" class="">
+</p><p id="46ec6a31-39ea-4732-9176-c56bd87cfdce" class="">
+</p><p id="d7a35ec4-0b6f-47e2-8841-2fad9717475e" class="">
+</p><p id="9db9a95f-dc1c-4803-a81c-d0117b895b44" class="">
+</p><p id="35a9734e-df6b-4cc7-a307-b4525cbd9df1" class="">
+</p><p id="926a6401-a42e-4f86-a0d9-bd1cb074036d" class="">
+</p><p id="2d54174e-d6fc-4f74-b4d3-440eef16feac" class="">
+</p><p id="73d8c061-4791-497e-9f98-01752e15d3c4" class="">
+</p><p id="b6b7bc8f-a8ea-44e9-bf7c-43feaf5d3e2d" class="">
+</p><p id="9501e297-66e3-4d6f-b280-9981d696258f" class="">
+</p><p id="f3e9adee-27cc-42e7-ad7d-fd3c5fb73715" class="">
+</p><p id="5d2a8cc9-e176-4429-be9d-30de6398040f" class="">
+</p><p id="76237498-4730-47f6-99d8-730fbed1dc78" class="">
+</p><p id="051689ad-d3c8-4222-8af6-b5ea441ab1b3" class="">
+</p><p id="48d1a6d6-9884-4ee6-9e07-f213575c1b6b" class="">
+</p><p id="7bbe331c-e22a-4817-bc9d-46d84177db36" class="">
+</p><p id="c4591e20-cf85-41d5-97a5-c8090cc1e458" class="">
+</p><p id="23b9cca4-a80d-447d-b694-4c7e44dc91d8" class="">
+</p><p id="83b9562d-3389-4f6a-84a4-7f8ba13913cf" class="">
+</p><p id="f06994c6-66f5-4409-b6fe-53c7b71934f7" class="">
+</p><p id="90af7609-5460-466d-a7fc-af97384b1bd9" class="">
+</p><p id="b8022109-29fc-41c6-9b1a-894d7aedc481" class="">
+</p><p id="e5845ebe-eb36-40b2-9055-05d827757ece" class="">
+</p><p id="a85fcf89-a0c5-4c0f-9562-c6c974206995" class="">
+</p><p id="f82e8fcb-7d4d-4d3b-ac53-a54dc6c09620" class="">
+</p><p id="1877ae9b-5e56-488f-a07b-3dee8fd99420" class="">
+</p><p id="ebc72672-6987-404b-a4b5-bd18e388c4a6" class="">
+</p><p id="025932a1-bc30-4921-9e30-a41d61838284" class="">
+</p><p id="ee8877a5-ecfe-4900-a4b5-77928a33dbd2" class="">
+</p></div></article></body></html>
